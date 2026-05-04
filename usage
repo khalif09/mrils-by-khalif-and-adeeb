@@ -1,0 +1,11 @@
+from mrils import MRILS, MRILSEnhanced, GreedyMC, SingleRIS, DegreeDiscount
+import networkx as nx
+
+# Create a directed scale‑free graph
+G = nx.DiGraph(nx.scale_free_graph(500, seed=0))
+for u, v in G.edges():
+    G[u][v]["weight"] = 0.1
+
+algo = MRILS(n_restarts=5, ls_passes=5, eval_sims=500)
+result = algo.select_seeds(G, k=10)
+print(result)
